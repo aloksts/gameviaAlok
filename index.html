@@ -1,0 +1,177 @@
+<html>
+<head> 
+     <title>word guess game</title>
+	 <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Carter+One&family=Source+Sans+Pro:wght@200&display=swap" rel="stylesheet">
+	 <style>
+	    *{
+		   margin:0;padding:0;box-sizing:border-box;}
+		   
+		  header{
+		         width:100%;
+				 background-color:#20bf6b;
+				 line-height:15vh;
+				 }
+				 h1{
+				     text-align:center;
+					 color:white;
+					 font-family: 'Carter One', cursive;
+					 font-size:1.8rem;
+					 text-transform:uppercase;
+					 letter-spacing:15px;
+					 text-shadow:0 1px 0 #efefef,
+					             0 2px 0 #efefef,
+								 0 3px 0 #efefef,
+								 0 4px 0 #efefef,
+								 0 30px 5px rgba(0,0,0,.1);
+								 }
+			section{
+			      height:85vh;
+				  background-color:#7bed9f;
+				  display:flex;
+				  justify-content:center;
+				  align-items:center;
+				  
+				  }
+			.gameArea{
+			       width:50%;
+				   height:400px;
+				   padding:20px 0;
+				   background-color:#2ed573;
+				   display:flex;
+				   flex-direction:column;
+				   justify-content:center;
+				   align-items:center;
+				   
+				   
+				   
+				   box-shadow: 0 8px 6px -6px black;
+				   font-family: 'Source Sans Pro', sans-serif;
+			}
+			h3{
+			    text-center;
+				font-size:1.5rem;
+				font-family: 'Source Sans Pro', sans-serif;
+				}
+		    input{
+			    width:40%;
+				padding:15px 0;
+				
+				border-radius:25px;
+				outline:none;
+				border:none;
+				background-color:#dff9fb;
+				color:black;
+				margin:2rem;
+				font-size:1.1rem;
+				}
+			button{
+			    
+			    font-size:1rem;
+				cursor:pointer;
+				outline:none;
+				border:#2f3542;
+				margin-top:10px;
+				color:#eb4d4b;
+				}
+			button.btn{
+			   font-weight:600;
+			   padding:1rem 2rem;
+			   background:white;
+			   text-transform:uppercase;
+			   transition-property:all;
+			   transition-duration:0.5s;
+			   transition-timing-function:cubic-bezier(0.65,-0,25,0.25,1.95);
+				}
+				button.btn:hover,button.btn:focus,button.btn:active{
+				              letter-spacing:0.125rem;
+							  word-spacing:0.2rem;
+			   }	
+			   .hidden{
+			      display:none;
+				  }
+				  
+	 </style>
+</head>
+<body>
+    <header> <h1>word guess game<h1></header>
+	<section>
+	    <div class="gameArea">
+		   <h3 class="msg"></h3>
+		   <input type="text" class="hidden">
+		   <button class="btn">click here to start</button>
+		</div>
+	
+
+
+     <script>
+	      const msg=document.querySelector('.msg');
+		  const guess=document.querySelector('input');
+		  const btn=document.querySelector('.btn');
+		  let play=false;
+		  let newWords="";
+		  let randWords="";
+		  let sWords =['apple','banana','custard','java','aanchal','boblu','laptop','game','pagal','sony','bharti','condom','elephant'];
+		  const createNewWords = () => {
+		        let ranNum=Math.floor(Math.random() * sWords.length);
+				let newTempSwords=sWords[ranNum];
+				return newTempSwords;	
+		  }
+		  const scrambleWords = (arr) =>{
+				for(let b=arr.length-1;0<b;b--)
+				{
+				  let c=Math.floor(Math.random()*(b+1));
+				  d=arr[b];
+				  arr[b]=arr[c];
+				  arr[c]=d;
+				  
+				  }
+				   
+			
+				return arr;
+			  }
+		  btn.addEventListener('click',function(){
+		               if(!play)
+					   {
+					      play=true;
+						  btn.innerHTML="Guess";
+						  guess.classList.toggle('hidden');
+						  newWords=createNewWords();
+						  randWords=scrambleWords(newWords.split("")).join("");
+						  msg.innerHTML=`Guess the words:${randWords}`;
+						  
+						  
+						  
+						  }
+						  else
+						  {
+						    let tempWord=guess.value;
+							if(tempWord===newWords)
+							{
+							     play=false;
+								 msg.innerHTML=`AWESOME! It's Correct.it is ${newWords}`;
+								 btn.innerHTML="START AGAIN";
+							     console.log("correct");
+								 guess.classList.toggle('hidden');
+								 guess.value="";
+							}
+							else{
+							    //console.log("incorrect");
+								msg.innerHTML=`Sorry Boblu.it's not correct.plz try again.${randWords}`;
+							}
+							
+						  }
+						  
+						  })
+
+	 
+	 
+	 
+	 
+	 </script>
+
+
+
+
+</body>
+</html>
